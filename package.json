@@ -2,17 +2,24 @@
   "name": "temporal-activities-examples",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "main": "./lib/worker.js",
+  "exports": {
+    ".": "./lib/worker.js",
+    "./contentful/activities": "./lib/contentful/activities.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "tsc --build",
     "build.watch": "tsc --build --watch",
     "jest": "jest",
     "lint": "eslint .",
-    "start": "ts-node src/worker.ts",
+    "start": "ts-node-esm src/worker.ts",
     "start.watch": "nodemon src/worker.ts",
     "test": "ts-mocha src/mocha/*.test.ts",
     "test.watch": "ts-mocha src/mocha/*.test.ts -w --watch-files src",
     "test.coverage": "nyc --reporter=lcov --reporter=text-summary ts-mocha src/mocha/*.test.ts",
-    "workflow": "ts-node src/client.ts"
+    "workflow": "ts-node-esm src/client.ts"
   },
   "nodemonConfig": {
     "execMap": {

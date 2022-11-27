@@ -1,5 +1,5 @@
-import { proxyActivities } from '@temporalio/workflow';
-import { CmsmsActivities } from './common/activities';
+import { proxyActivities } from '@temporalio/workflow'
+import { CmsmsActivities } from './activities.js'
 
 const {
   createContentType,
@@ -12,10 +12,17 @@ const {
   startToCloseTimeout: '30 seconds',
 });
 
-export async function createContentTypeWorkflow(): Promise<void> {
-  await createContentType('thing')
+// Very simple workflows just to demonstrate
+export async function createContentTypeWorkflow(name: string): ReturnType<typeof createContentType> {
+  const res = await createContentType(name)
+  console.log('this res is a', res) // not an actual Result, but a serialized JSON object
+  // if we want to use true-myth further we need to deserializeResult
+  return res
 }
 
-export async function createContentWorkflow(): Promise<void> {
-  await createContent('thing', 'table')
+export async function createContentWorkflow(ctypeName: string, contentName: string): ReturnType<typeof createContent> {
+  const res = await createContent(ctypeName, contentName)
+  console.log('this res is a', res)
+  // if we want to use true-myth further we need to deserializeResult
+  return res
 }
