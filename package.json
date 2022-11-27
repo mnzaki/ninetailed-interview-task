@@ -29,7 +29,9 @@
     "@temporalio/worker": "^1.4.0",
     "@temporalio/workflow": "^1.4.0",
     "axios": "^0.26.0",
-    "node-fetch": "2.x"
+    "contentful-management": "^10.21.4",
+    "node-fetch": "2.x",
+    "true-myth": "^6.2.0"
   },
   "devDependencies": {
     "@temporalio/nyc-test-coverage": "^1.4.0",
