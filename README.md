@@ -1,29 +1,24 @@
-# Activities Examples
+# CMS Management System
 
-This sample shows use cases for Activities:
+This is based on https://temporal.io and https://true-myth.js.org
 
-- [`makeHTTPRequest`](./src/activities/index.ts): Make an external HTTP request in an Activity (using `axios`).
-- [`cancellableFetch`](./src/activities/cancellable-fetch.ts): Make a cancellable HTTP request with [cancellationSignal](https://typescript.temporal.io/api/classes/activity.context/#cancellationsignal).
-- [`doSomethingAsync`](./src/activities/async-completion.ts): Complete an Activity async with [`AsyncCompletionClient`](https://typescript.temporal.io/api/classes/client.AsyncCompletionClient#complete).
+The temporal [Activities Examples](https://github.com/temporalio/samples-typescript/tree/main/activities-examples)
+was used as a starting point, with changes to support ES modules as required by
+`true-myth`
 
-More Activity samples are [listed here](https://github.com/temporalio/samples-typescript/#activity-apis-and-design-patterns).
-
-### Testing
-
-- Mocha: `npm test` and `npm run test.watch` run these tests: [`src/mocha/workflows.test.ts`](./src/mocha/workflows.test.ts)
-- Jest: `npm run jest` runs tests outside the `mocha/` directory:
-  - [`src/workflows.test.ts`](./src/workflows.test.ts)
-  - [`src/activities/make-http-request.test.ts`](./src/activities/make-http-request.test.ts)
-
-### Running this sample
+## Running
 
 1. Make sure Temporal Server is running locally (see the [quick install guide](https://docs.temporal.io/server/quick-install/)).
 2. `npm install` to install dependencies.
-3. `npm run start.watch` to start the Worker.
-4. In another shell, `npm run workflow` to run the Workflow.
+3. `npm run start contentful` to start the Worker for contentful activities
+4. In another shell, `npm run workflow contenful` to run the Workflow.
 
-The Workflow should make an HTTP request to [httpbin.org](https://httpbin.org/) and then return:
-
-```
-The answer is 42
-```
+## Directory Structure
+- `./src/common/` contains workflows and activities related to all CMSes
+  - `common/workflows.ts`
+  - `common/activities.ts`
+    - `CmsmsActivities` is an interface for CMS management activities
+- `./src/contentful` contains the implementation for Contentful
+- `./src/worker.ts` is a worker that can load activites for a specific CMS and
+  start accepting jobs on the CMS-specific queue
+- `./src/client.ts` is a client that can request work for a specific CMS
