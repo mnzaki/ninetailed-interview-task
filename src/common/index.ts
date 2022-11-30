@@ -8,3 +8,9 @@ export interface CmsmsActivities {
   createContentType(name: string): Promise<Result<ContentTypeId, CmsmsError>>
   createContent(ctype: string, name: string): Promise<Result<ContentId, CmsmsError>>
 }
+
+export interface Cmsms {
+  createActivities: () => Promise<CmsmsActivities>,
+  getQueueName: () => string
+}
+

@@ -5,20 +5,15 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url)
 
 import { Worker } from '@temporalio/worker';
-import {CmsmsActivities} from './common/activities.js';
-import createContentfulActivities from './contentful/activities.js'
-
-const cmsmsActivities: { [k: string]: () => Promise<CmsmsActivities> } = {
-  "contentful": createContentfulActivities
-}
+import {Cmsms} from './common/index.js';
 
 async function run() {
   const cmsmsImpl = process.argv[2]
-  let createActivities
+  let cmsms: Cmsms
 
   if (cmsmsImpl) {
-    createActivities = cmsmsActivities[cmsmsImpl]
-    if (!createActivities) {
+    cmsms = await import(`./${cmsmsImpl}/index.js`)
+    if (!cmsms) {
       console.error("bad implementation")
       process.exit(1)
     }
@@ -32,8 +27,8 @@ async function run() {
 
   const worker = await Worker.create({
     workflowsPath: require.resolve('./common/workflows'),
-    activities: await createActivities(),
-    taskQueue: 'activities-examples',
+    activities: await cmsms.createActivities(),
+    taskQueue: cmsms.getQueueName(),
   });
 
   await worker.run();

@@ -1,5 +1,5 @@
 import { proxyActivities } from '@temporalio/workflow'
-import { CmsmsActivities } from './activities.js'
+import { CmsmsActivities } from './index.js'
 
 const {
   createContentType,

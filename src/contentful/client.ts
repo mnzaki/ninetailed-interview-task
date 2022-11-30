@@ -1,6 +1,6 @@
 import contentful, {Environment, Space} from 'contentful-management'
 import Result from 'true-myth/result'
-import { CmsmsActivities, CmsmsError } from '../common/activities.js'
+import { CmsmsActivities, CmsmsError } from '../common/index.js'
 
 export async function createApiClient(
   accessToken: string,
